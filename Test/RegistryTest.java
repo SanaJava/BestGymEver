@@ -65,7 +65,7 @@ class RegistryTest {
     }
 
     @Test
-    void findCustomer() {
+    void testFindCustomer() {
         String personalNumber = "5607021234";
         String customerName = "Anna Usher";
         Customer customer = new Customer(personalNumber, LocalDate.now(), customerName);
@@ -74,16 +74,4 @@ class RegistryTest {
         assertNotNull(registry.findCustomer(personalNumber));
         assertNotNull(registry.findCustomer(customerName));
     }
-/*
-    @Test
-    void findCustomerByName() {
-        String costumerName = "Juan Barbi";
-        Customer customer = new Customer("", LocalDate.now(), costumerName);
-        registry.addCustomer(customer);
-
-        assertNotNull(registry.findCustomerByName(costumerName));
-
-    }
-
- */
 }

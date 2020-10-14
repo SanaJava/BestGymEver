@@ -16,7 +16,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Registry registry = new Registry();
 
-        try (Scanner fileScanner = new Scanner(new File("customers.txt")).useDelimiter(",|\n")) {
+        try (Scanner fileScanner = new Scanner(new File("customers.txt")).useDelimiter("[,\n]")) {
             while (fileScanner.hasNext()) {
                 String personalNumber = fileScanner.next();
                 String name = fileScanner.next().trim();
@@ -28,33 +28,37 @@ public class Main {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.exit(0);
         } catch (NoSuchElementException e) {
             System.out.println("Loading complete");
         }
 
-        System.out.println("Enter the full name or personal number of the person: ");
-        String input = sc.nextLine();
-        Customer customer = registry.findCustomer(input);
-
-        if (customer != null) {
-
-            if (registry.hasCustomerPayed(customer)) {
-                System.out.println("Membership for " + customer.getCustomerName() + " is active!\n");
-                try {
-                    registry.addCustomerToPTList(customer);
-                } catch (IOException e) {
-                    e.printStackTrace();
-
-                }
-
-            } else {
-                System.out.println("Access denied for "
-                        + customer.getCustomerName() + ", the membership expired at "
-                        + customer.getAnnualFeeDate().plusYears(1));
+        while (true) {
+            System.out.println("Enter the full name or personal number of the person (or exit to quit): ");
+            String input = sc.nextLine();
+            if (input.equalsIgnoreCase("exit")){
+                System.out.println("Stay safe and wash your hands");
+                break;
             }
-        } else {
-            System.out.println("Membership is not active or member not found please try again.");
-        }
+            Customer customer = registry.findCustomer(input);
 
+            if (customer != null) {
+                if (registry.hasCustomerPayed(customer)) {
+                    System.out.println("Membership for " + customer.getCustomerName() + " is active!\n");
+                    try {
+                        registry.addCustomerToPTList(customer);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Access denied for "
+                            + customer.getCustomerName() + ", the membership expired at "
+                            + customer.getAnnualFeeDate().plusYears(1)+"\n");
+                }
+            } else {
+                System.out.println("WARNING!");
+                System.out.println("Membership has never existed.\n");
+            }
+        }
     }
 }
