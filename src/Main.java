@@ -30,14 +30,14 @@ public class Main {
             e.printStackTrace();
             System.exit(0);
         } catch (NoSuchElementException e) {
-            System.out.println("Loading complete");
+            registry.addProgressBar();
         }
 
         while (true) {
             System.out.println("Enter the full name or personal number of the person (or exit to quit): ");
             String input = sc.nextLine();
             if (input.equalsIgnoreCase("exit")){
-                System.out.println("Stay safe and wash your hands");
+                System.out.println("Stay safe and wash your hands \u2661");
                 break;
             }
             Customer customer = registry.findCustomer(input);
@@ -56,8 +56,7 @@ public class Main {
                             + customer.getAnnualFeeDate().plusYears(1)+"\n");
                 }
             } else {
-                System.out.println("WARNING!");
-                System.out.println("Membership has never existed.\n");
+                System.out.println("WARNING! Membership has never existed.\n");
             }
         }
     }

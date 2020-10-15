@@ -17,7 +17,6 @@ public class Customer {
         this.personalNumber = personalNumber;
         this.annualFeeDate = annualFeeDate;
         this.customerName = customerName;
-
     }
 
     public String getPersonalNumber() {

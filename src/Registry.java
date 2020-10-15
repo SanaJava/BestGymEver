@@ -3,10 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +23,7 @@ public class Registry {
 
     public boolean hasCustomerPayed(Customer customer) {
         Period period = Period.between(customer.getAnnualFeeDate(), LocalDate.now());
-        return period.getYears() <= 1;
+        return period.getYears() < 1;
     }
 
     public void addCustomer(Customer customer) {
@@ -63,5 +60,18 @@ public class Registry {
 
             printWriter.printf("%s\r\n", output);
         }
+    }
+
+    public void addProgressBar() {
+        for (int i = 0; i <= 100; i++) {
+            System.out.print("Loading file: " + i + "% " + "\r");
+
+            try {
+                Thread.sleep(13);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Loading file: Loading completed");
     }
 }
